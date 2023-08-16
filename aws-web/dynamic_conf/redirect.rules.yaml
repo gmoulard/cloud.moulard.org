@@ -1,0 +1,13 @@
+http:
+  routers:
+    box:
+      rule: Host(`cloud.moulard.org`)
+      service: box
+        #      entryPoints:
+        # - "websecure"
+
+  services:
+    box:
+      loadBalancer:
+        servers:
+           - url: "http://aws-app:8088"

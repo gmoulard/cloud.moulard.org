@@ -20,3 +20,36 @@ In free tier on AWS is possible to have a small VM for free with 30go for 0€.
 
 That great for me. 
 
+## who
+
+I use 3 machines 
+- aws data
+- aws app
+- self hosted raspbery py whith one HD
+
+One my contexte I use 2 vm on AWS probably often only one is a good choice
+
+### aws-app
+
+crontab 
+```
+*/5 * * * * docker exec -u www-data nextcloud-nextcloud-1 php cron.php > /tmp/nextcloud-app-1phpcron.log 2> /tmp/nextcloud-app-1phpcron.err
+
+```
+
+fstab
+```
+ec2-user@cloud.moulard.org:/home/ec2-user/DD /home/dd/cloudmoulardorg  fuse.sshfs noauto,x-systemd.automount,_netdev,reconnect,identityfile=/home/ec2-user/.ssh/guillaume.moulard@orange.com4096.id_rsa,allow_other,default_permissions,uid=33,gid=33 0 0
+
+pi@127.0.0.1:/media/pi/GMOULARD1TO3 /home/dd/DDISSY fuse.sshfs port=1306,x-systemd.automount,_netdev,reconnect,identityfile=/home/ec2-user/.ssh/guillaume@moulard.org.id_rsa,allow_other,default_permissions,uid=33,gid=33 0 0
+
+```
+
+### raspbarry pi
+
+
+crontab 
+```
+@reboot /home/pi/pi-appliance/autossh.sh
+
+```

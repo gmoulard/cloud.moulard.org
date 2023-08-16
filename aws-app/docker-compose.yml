@@ -1,0 +1,43 @@
+version: '2'
+# docker-compose.yml.V5
+volumes:
+  nextcloud:
+  db:
+
+services:
+  db:
+    image: mariadb:10.6
+    restart: unless-stopped
+    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=yyyyyyyyyyyyy
+      - MYSQL_PASSWORD=xxxxxxxxxxxxxxxxxx
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+
+  nextcloud:
+    image: nextcloud
+    restart: always
+    ports:
+      - 8088:80
+    links:
+      - db
+    volumes:
+      - nextcloud:/var/www/html
+      - /home/dd/cloudmoulardorg:/DD
+      - /home/dd/DDISSY:/DDissy
+    environment:
+      - MYSQL_PASSWORD=xxxxxxxxxxxxxxxxxx
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=db
+      - REDIS_HOST=redis
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    volumes:
+      - /docker/nextcloud/redis:/data
+    restart: unless-stopped
