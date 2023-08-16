@@ -53,3 +53,24 @@ crontab
 @reboot /home/pi/pi-appliance/autossh.sh
 
 ```
+
+Install docker
+```
+sudo apt-get update && sudo apt-get upgrade
+.....
+
+sudo usermod -aG docker pi
+sudo usermod -aG docker ${USER}
+sudo systemctl enable docker
+
+```
+
+un-Install docker
+https://dev.to/elalemanyo/how-to-install-docker-and-docker-compose-on-raspberry-pi-1mo
+```
+sudo apt-get purge docker-ce
+sudo apt-get purge docker-ce-cli
+sudo rm -rf /var/lib/docker
+
+```
+
